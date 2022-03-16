@@ -1,25 +1,52 @@
 <?php
 
-function getData(){
-    $conn = mysqli_connect("localhost", "root","ZAQ!2wsx","clicker");
-$sql = "SELECT * FROM dataTable;";
-$result = mysqli_query($conn,$sql);
-$resultCheck = mysqli_num_rows($result);
-return $resultCheck;
+
+function openCon()
+ {
+ $dbhost = "localhost";
+ $dbuser = "root";
+ $dbpass = "ZAQ!2wsx";
+ $db = "clicker";
+ $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+ 
+ return $conn;
+ }
+ 
+function closeCon($conn)
+ {
+ $conn -> close();
+ }
+ function collectData($tab){
+ $query = "SELECT $tab FROM dataTable";
+
+if ($result = mysqli_query(openCon(), $query)) {
+
+    /* fetch associative array */
+    while ($row = mysqli_fetch_assoc($result)) {
+        printf ("%s (%s)\n", $row["$tab"]);
+    }
+
+    /* free result set */
+    mysqli_free_result($result);
 }
-$rows = getData();
-if($rows > 0){
-    while($row = mysqli_fetch_assoc($result)){
-        echo $row;
-    }  
+
+/* close connection */
+closeCon(openCon()); 
+ }
+function insertData(){
+    $sql = "INSERT INTO dataBase VALUES ()";
+if(mysqli_query(openCon(), $sql)){
+    echo "Records inserted successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error(openCon());
 }
-
-
-
-if($ques){
-    echo "Barcode details Successfully Added";
-} else {
-    echo mysql_error();
 }
-
 ?>
+
+
+
+
+
+
+
+
