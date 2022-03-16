@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `dane`
 --
 
-CREATE TABLE `dane` (
+CREATE TABLE `dataTable` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `status` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`status`))
@@ -40,7 +40,7 @@ CREATE TABLE `dane` (
 --
 -- Indeksy dla tabeli `dane`
 --
-ALTER TABLE `dane`
+ALTER TABLE `dataTable`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -50,7 +50,7 @@ ALTER TABLE `dane`
 --
 -- AUTO_INCREMENT dla tabeli `dane`
 --
-ALTER TABLE `dane`
+ALTER TABLE `dataTable `
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
