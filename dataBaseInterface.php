@@ -16,9 +16,12 @@ function closeCon($conn)
  {
  $conn -> close();
  }
+ function typeData($dates){
+$collect = "SELECT $dates FROM dataTable";
+return $collect;
+ }
  function collectData($tab){
- $query = "SELECT $tab FROM dataTable";
-
+ $query = $tab;
 if ($result = mysqli_query(openCon(), $query)) {
 
     /* fetch associative array */
@@ -33,8 +36,8 @@ if ($result = mysqli_query(openCon(), $query)) {
 /* close connection */
 closeCon(openCon()); 
  }
-function insertData(){
-    $sql = "INSERT INTO dataBase VALUES ()";
+function insertData($insertData){
+    $sql = "INSERT INTO dataBase VALUES ($insertData)";
 if(mysqli_query(openCon(), $sql)){
     echo "Records inserted successfully.";
 } else{
