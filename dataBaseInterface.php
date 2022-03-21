@@ -50,7 +50,7 @@ closeCon(openCon());
  /* zapisywanie do bazy danych */
 function insertData($insertData){
 
-    $sql = "INSERT INTO dataTable VALUES ($insertData)";
+    $sql = $insertData;
 
     if(mysqli_query(openCon(), $sql)){
 
