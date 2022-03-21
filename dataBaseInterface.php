@@ -48,7 +48,7 @@ if(mysqli_query(openCon(), $sql)){
 }
 }
 //szukanie po id
-public function find($id)
+function find($id)
 {
     $statement = "
         SELECT 
@@ -69,7 +69,7 @@ public function find($id)
     }
 }
 
-public function delete($id)
+function delete($id)
 {
     $statement = "
         DELETE FROM dataTable
