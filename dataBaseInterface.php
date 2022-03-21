@@ -50,7 +50,7 @@ closeCon(openCon());
  /* zapisywanie do bazy danych */
 function insertData($insertData){
 
-    $sql = "INSERT INTO dataBase VALUES ($insertData)";
+    $sql = $insertData;
 
     if(mysqli_query(openCon(), $sql)){
 
@@ -62,11 +62,7 @@ function insertData($insertData){
 
 }
 }
-<<<<<<< HEAD
-//szukanie po id
-=======
 /* szukanie po id */
->>>>>>> e58b10ba7327fc4eff683d52cac0349c7c0953b1
 function find($id)
 {
 
