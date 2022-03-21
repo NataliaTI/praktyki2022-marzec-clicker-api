@@ -1,3 +1,3 @@
 <?php
-//echo'Coś tam';
+
 ?>

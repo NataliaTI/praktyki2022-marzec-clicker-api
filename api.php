@@ -1,6 +1,5 @@
 <?php
 header("Content-Type:application/json");
-
 //  GENERACJA UUID
 $uuid = gen_uuid();  
 function gen_uuid() {
@@ -59,7 +58,7 @@ echo $jwtGen;
 
 /*  DODANIE NOWEGO REKORDU DO BAZY DANYCH
     USER_ID PRZYJMUJE WARTOŚĆ WYGENEROWANEGO WCZEŚNIEJ UUID
-    
+
     include('dataBaseInterface.php');
     $result = mysqli_query(
         openCon(),

@@ -13,8 +13,8 @@ function uriParse() {
 //var_dump(uriParse());
 
 const ROUTE_MAP = [
-    'router.php' => 'writeAndRead.php',
-    'kategoria' => 'productList'
+    'login' => 'api.php',
+    'game-states' => 'writeAndRead.php'
 ];
 
 function comparison(){
@@ -23,7 +23,7 @@ $uri_control = $url_parsed['segments'][2];
 $uriTable = ROUTE_MAP;
 {
 if(isset($uriTable[$uri_control]))
-return require('C:\xampp\htdocs\Lokalne repozytorium\praktyki2022-marzec-clicker-api\writeAndRead.php');
+
+require(dirname(__FILE__).'/'.$uriTable[$uri_control]);
 }
 }
-var_dump(comparison());
