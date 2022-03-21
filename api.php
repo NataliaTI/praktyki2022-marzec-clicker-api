@@ -1,6 +1,6 @@
 <?php
 header("Content-Type:application/json");
-
+echo 'test2';
 /*
 const JWT_SECRET_KEY = 'wekfuhweuoghjrwojg';
 
