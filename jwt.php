@@ -7,25 +7,9 @@
     SKORZYSTAJ ZE ZMIENNEJ
         $jwtGen
 */
-require('uuid.php');
-/*  STATUS_JWT
-    PRZYJĄŁEM, ŻE
-        $status_jwt = false
-        OZNACZA, ŻE
-            $jwtGen
-            WYGENEROWAŁ SIĘ DOBRZE
-        $status_jwt = true
-        OZNACZA, ŻE
-            $jwtGen
-            WYGENEROWAŁ SIĘ ŹLE
-*/
-$status_jwt;
-/*  JEŚLI UUID WYGENEROWAŁO SIĘ ŹLE
-    NIE MA SENSU GENEROWAĆ JWT
-    W TYM WYPADKU
-        $status_jwt = true
-*/  
-if($status_uuid == true){
+include('uuid.php');
+$status_jwt = ''; 
+if($status_uuid == 'Failed' || empty($status_uuid)){
     $status_jwt = true;
     return;
 }else{
@@ -43,10 +27,10 @@ if($status_uuid == true){
         return $jwt;
     }
     $jwtGen = generate_jwt($headers, $payload);
-    if(isset($jwtGen)) {
-        $status_jwt = false;
+    if(isset($jwtGen) && !empty($jwtGen)) {
+        $status_jwt = 'Succeded';
     } else {
-        $status_jwt = true;
+        $status_jwt = 'Failed';
     }
 }
 //  TESTOWE: WYŚWIETLENIE $status_jwt

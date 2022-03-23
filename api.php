@@ -1,11 +1,18 @@
 <?php
 header("Content-Type:application/json");
-require('jwt.php'); // ZAŁĄCZA RÓWNIEŻ uuid.php
-if($status_jwt == true){
-    echo 'Nie pykło';
+include('jwt.php'); // ZAŁĄCZA RÓWNIEŻ uuid.php
+$auth_message = "Success";
+if($status_jwt == 'Failed' || empty($status_jwt)){
+    if($status_uuid == 'Failed' || empty($status_uuid)){
+        $auth_message = "UUID Generation fail";
+    }else $auth_message = "JWT Generation fail";
+    $auth_response = array("Status"=>"Fail", "Data"=>null, "Message"=>$auth_message);
     return;
 }else{
-    echo 'Pykło';
+    $auth_data = array("Token"=>$jwtGen);
+    $auth_response = array("Status"=>"Success", "Data"=>$auth_data, "Message"=>$auth_message);
+    $auth_response_enc = json_encode($auth_response);
+    echo $auth_response_enc;
 }
 /*  TERAŹNIEJSZA DATA I CZAS W UTF +1
 TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT

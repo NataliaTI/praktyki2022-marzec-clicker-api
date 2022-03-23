@@ -30,12 +30,12 @@ function gen_uuid() {
             $jwtGen
             WYGENEROWAŁ SIĘ ŹLE
 */
-$status_uuid;
-if(isset($uuid)) {
-    $status_uuid = false;
+$status_uuid='';
+if(isset($uuid) && !empty($uuid)) {
+    $status_uuid = 'Succeded';
     
 } else {
-    $status_uuid = true;
+    $status_uuid = 'Failed';
 }
 //  TESTOWE: WYŚWIETLENIE $status_uuid
 //echo $status_uuid;
