@@ -1,4 +1,12 @@
 <?php
+/*  ABY SPRAWDZIĆ CZY UUID ZOSTAŁ WYGENEROWANY
+    SKORZYSTAJ ZE ZMIENNEJ
+        $status_uuid  
+
+    ABY WYKORZYSTAĆ WYGENEROWANE UUID W TWOIM KODZIE
+    SKORZYSTAJ ZE ZMIENNEJ
+        $uuid
+*/
 $uuid = gen_uuid();
 function gen_uuid() {
 
@@ -11,5 +19,15 @@ function gen_uuid() {
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 
 }
-//  TESTOWE WYŚWIETLANIE GENEROWANEGO UUID
+$status_uuid='';
+if(isset($uuid) && !empty($uuid)) {
+    $status_uuid = 'Succeded';
+    
+} else {
+    $status_uuid = 'Failed';
+}
+//  TESTOWE: WYŚWIETLENIE $status_uuid
+//echo $status_uuid;
+
+//  TESTOWE: WYŚWIETLENIE $uuid
 //echo $uuid;
