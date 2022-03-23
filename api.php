@@ -1,71 +1,38 @@
 <?php
 header("Content-Type:application/json");
-//  GENERACJA UUID
-$uuid = gen_uuid();  
-function gen_uuid() {
-    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-    // 32 bits for "time_low"
-    mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-    
-    // 16 bits for "time_mid"
-    mt_rand( 0, 0xffff ),
-    
-    // 16 bits for "time_hi_and_version",
-    // four most significant bits holds version number 4
-    mt_rand( 0, 0x0fff ) | 0x4000,
-    
-    // 16 bits, 8 bits for "clk_seq_hi_res",
-    // 8 bits for "clk_seq_low",
-    // two most significant bits holds zero and one for variant DCE1.1
-    mt_rand( 0, 0x3fff ) | 0x8000,
-    
-    // 48 bits for "node"
-    mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-);
-}
-
-//  GENERACJA JWT
-$headers = array('alg'=>'HS256','typ'=>'JWT');
-$payload = array($uuid);
-$jwtGen = generate_jwt($headers, $payload);
-function generate_jwt($headers, $payload, $secret = 'aabXXryuOOpe342bn24ldaFFGooopffgde45') {
-    $headers_encoded = base64url_encode(json_encode($headers));
-    $payload_encoded = base64url_encode(json_encode($payload));
-    $signature = hash_hmac('SHA256', "$headers_encoded.$payload_encoded", $secret, true);
-    $signature_encoded = base64url_encode($signature);
-    $jwt = "$headers_encoded.$payload_encoded.$signature_encoded";
-    return $jwt;
-}
-function base64url_encode($str) {
-    return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
-}
-//  TESTOWE: WYŚWIETLANIE WYGENEROWANEGO JWT
-echo $jwtGen;
+require('jwt.php');
+require('uuid.php');
 
 /*  TERAŹNIEJSZA DATA I CZAS W UTF +1
-    TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT
-    TERAŹNIEJSZĄ DATĘ PRZEKAZAĆ DO ENDPOINTA GAME-STATES
+TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT
+TERAŹNIEJSZĄ DATĘ PRZEKAZAĆ DO ENDPOINTA GAME-STATES
 
-    date_default_timezone_set('Europe/Warsaw');
-    $today = date('Y-m-d H:i:s');
-    echo $today;
-    
+date_default_timezone_set('Europe/Warsaw');
+$today = date('Y-m-d H:i:s');
+echo $today;
 */
 
-/*  ZAPISANIE WYGENEROWANEGO JWT PO STRONIE GRY
-    !DO ZROBIENIA!
+//  ZAPISANIE WYGENEROWANEGO JWT PO STRONIE GRY
+/*
+$cookie_name = "JWT";
+$cookie_value = $jwtGen;
+$cookie_expire = time()+(60*60*24*365);
+setcookie($cookie_name, $cookie_value, $cookie_expire, "/");
 */
 
 /*  DODANIE NOWEGO REKORDU DO BAZY DANYCH
     USER_ID PRZYJMUJE WARTOŚĆ WYGENEROWANEGO WCZEŚNIEJ UUID
-
-    include('dataBaseInterface.php');
+*/
+/*
+    require('dataBaseInterface.php');
     $result = mysqli_query(
         openCon(),
-        insertData('INSERT INTO `datatable` (user_id) VALUES ($uuid)')
-        //"INSERT INTO `dataTable` (user_id) VALUES ($jwt)"
-    );
-*/
+        "INSERT INTO datatable (user_id) VALUES ($uuid)");
+        closeCon(openCon());
+    //   insertData("INSERT INTO datatable (user_id) VALUES (\'{$uuid}\')");
+    //  "INSERT INTO `dataTable` (user_id) VALUES ($jwt)"
+    
+
 
 /*  WCZEŚNIEJSZY KOD TESTOWY  
 if(isset($_GET['user_id']) && $_GET['user_id']!=""){

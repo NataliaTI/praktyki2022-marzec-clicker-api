@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Czas generowania: 18 Mar 2022, 12:22
+-- Czas generowania: 22 Mar 2022, 10:40
 -- Wersja serwera: 10.4.22-MariaDB
 -- Wersja PHP: 8.1.2
 
@@ -29,16 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `datatable` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` tinytext NOT NULL,
   `status` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`status`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `datatable`
---
-
-INSERT INTO `datatable` (`id`, `user_id`, `status`) VALUES
-(2, 2, '2');
 
 --
 -- Indeksy dla zrzutów tabel
