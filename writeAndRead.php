@@ -1,61 +1,37 @@
 <?php
- $json = json_decode(file_get_contents($url), true);
-     
-     
- for($i=0; $i<count($json['dane']); $i++)
-{
- foreach($json['status'][$i] as $key => $value){
-     if ($key == 'id') 
-     {
-         // Check if user exist on database
-         $test = mysqli_query($conn, "SELECT id FROM dataTable WHERE id='$value'");
-         if( $test && $test->num_rows )
-         {
-             // User exist - check if LOGO OR LOGO_SMALL OR NOTIF is other than on database
-             $username = $json['dane'][$i]['SERWIS_NAME'];
-             $logo = $json['dane'][$i]['LOGO'];
-             $logosmall = $json['dane'][$i]['LOGO_SMALL'];
-             $notify = $json['dane'][$i]['NOTIF'];
-             $logotest = implode(mysqli_fetch_assoc(mysqli_query($conn, "SELECT LOGO, LOGO_SMALL, NOTIF FROM users_list WHERE SERWIS_ID='$value'")));
-             // If all data is same on db and json echo success
-             if($logotest == $logo and $logotest == $logosmall and $logotest == $notify)
-                 {
-                     echo $username." istnieje w bazie, nie trzeba aktualizowac logo<br/>";
-                 }
-                 else
-                 // If data changed update whole user info
-                 {
-                     $sql = "UPDATE users_list SET LOGO='$logo', LOGO_SMALL='$logosmall', NOTIF='$notify' WHERE SERWIS_ID='$value'";
-                     if (mysqli_query($conn, $sql))
-                         {
-                             echo $username." istnieje w bazie. Aktualizowano logo dla ".$username."!<br/>";
-                         }
-                     else
-                         {
-                              echo "Error updating record: " . mysqli_error($conn)."<br/>";
-                         }
-                 }
-                 // If user dont exist on database insert it
-         } else
-         {
-             $userid = $json['dane'][$i]['SERWIS_ID'];
-             $username = $json['dane'][$i]['SERWIS_NAME'];
-             $logo = $json['dane'][$i]['LOGO'];
-             $logosmall = $json['dane'][$i]['LOGO_small'];
-             $date = $json['dane'][$i]['DATE'];
-             $notify = $json['dane'][$i]['NOTIF'];
-             $sql4 = "INSERT INTO users_list (ID,SERWIS_ID,SERWIS_NAME,LOGO,LOGO_SMALL,DATA,NOTIF,ACTIVE) 
-             VALUES ('', '$userid', '$username', '$logo', '$logosmall', '$date', '$notify', '1')";
-                 if (mysqli_query($conn, $sql4))
-                     {
-                         // Echo success
-                         echo "Dodano ".$username." do bazy danych!";
-                     }
-                 else
-                     {
-                          echo "Error updating record: " . mysqli_error($conn)."<br/>";
-                     }
-         }
-     }
- }
+
+    
+ 
+//   
+
+if(isset($_GET['user_id']) && $_GET['user_id']!=""){
+    include('dataBaseInterface.php');
+
+     HMACSHA256(
+         base64UrlEncode(header) + "." +
+         base64UrlEncode(payload),$_GET['user_id']
+    );
+    // $token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.WyI0N2I0YTUwNi03MzMyLTQ0YmQtOWQyZC1mZDQxZWU3NzY5NjEiXQ.-SPcxjpPG-j1hGePYZsb6DTd7etR7ZVtytVhKAwey1U";
+    // $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
+    // $user_id = json_encode($decodeJWT);
+    // echo $user_id;    
+
+    $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.',$_GET['user_id'] )[1]))));
+    $user_id=$decodeJWT;
+    $user_id = json_encode($decodeJWT);
+    $result = mysqli_query(
+        openCon(),
+        "SELECT * FROM `dataTable` WHERE user_id=$user_id");
+        if(mysqli_num_rows($result)>0){
+            $row = mysqli_num_rows($result);
+            $status = $row['status'];
+            response($user_id, $status);
+            closeCon(openCon());
+        }else{
+            header("HTTP/1.1 204 No Content");
+    }
+}else{
+//    header("HTTP/1.1 404 Not Found");
+}
+
 ?>

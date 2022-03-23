@@ -1,7 +1,7 @@
 <?php
 header("Content-Type:application/json");
 require('jwt.php');
-require('uuid.php');
+
 
 /*  TERAŹNIEJSZA DATA I CZAS W UTF +1
 TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT
