@@ -15,4 +15,4 @@ function base64url_encode($str) {
     return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
 }
 //  TESTOWE WYŚWIETLANIE GENEROWANEGO JWT
-echo $jwtGen;
+//echo $jwtGen;
