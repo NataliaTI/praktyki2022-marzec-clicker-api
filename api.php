@@ -1,15 +1,12 @@
 <?php
 header("Content-Type:application/json");
-require('jwt.php');
-
-/*
-if(isset($jwtGen)){
-    echo $jwtGen;
+require('jwt.php'); // ZAŁĄCZA RÓWNIEŻ uuid.php
+if($status_jwt == true){
+    echo 'Nie pykło';
+    return;
 }else{
-    echo 'nie pykło';
+    echo 'Pykło';
 }
-*/
-
 /*  TERAŹNIEJSZA DATA I CZAS W UTF +1
 TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT
 TERAŹNIEJSZĄ DATĘ PRZEKAZAĆ DO ENDPOINTA GAME-STATES

@@ -1,4 +1,12 @@
 <?php
+/*  ABY SPRAWDZIĆ CZY UUID ZOSTAŁ WYGENEROWANY
+    SKORZYSTAJ ZE ZMIENNEJ
+        $status_uuid  
+
+    ABY WYKORZYSTAĆ WYGENEROWANE UUID W TWOIM KODZIE
+    SKORZYSTAJ ZE ZMIENNEJ
+        $uuid
+*/
 $uuid = gen_uuid();
 function gen_uuid() {
 
@@ -11,5 +19,26 @@ function gen_uuid() {
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 
 }
-//  TESTOWE WYŚWIETLANIE GENEROWANEGO UUID
+/*  STATUS_JWT
+    PRZYJĄŁEM, ŻE
+        $status_jwt = false
+        OZNACZA, ŻE
+            $jwtGen
+            WYGENEROWAŁ SIĘ DOBRZE
+        $status_jwt = true
+        OZNACZA, ŻE
+            $jwtGen
+            WYGENEROWAŁ SIĘ ŹLE
+*/
+$status_uuid;
+if(isset($uuid)) {
+    $status_uuid = false;
+    
+} else {
+    $status_uuid = true;
+}
+//  TESTOWE: WYŚWIETLENIE $status_uuid
+//echo $status_uuid;
+
+//  TESTOWE: WYŚWIETLENIE $uuid
 //echo $uuid;
