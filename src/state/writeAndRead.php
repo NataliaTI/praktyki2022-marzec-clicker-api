@@ -1,6 +1,6 @@
 <?php
 
-    
+    ob_start
  
 //   
 

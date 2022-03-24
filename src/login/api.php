@@ -1,10 +1,5 @@
 <?php
 header("Content-Type:application/json");
-<<<<<<< HEAD
-require('jwt.php');
-
-
-=======
 include('jwt.php'); // ZAŁĄCZA RÓWNIEŻ uuid.php
 $auth_message = "Success";
 if($status_jwt == 'Failed' || empty($status_jwt)){
@@ -19,7 +14,6 @@ if($status_jwt == 'Failed' || empty($status_jwt)){
     $auth_response_enc = json_encode($auth_response);
     echo $auth_response_enc;
 }
->>>>>>> 4f0a705d35c336c37415e798e0e182dfb6efa10f
 /*  TERAŹNIEJSZA DATA I CZAS W UTF +1
 TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT
 TERAŹNIEJSZĄ DATĘ PRZEKAZAĆ DO ENDPOINTA GAME-STATES

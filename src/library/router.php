@@ -1,4 +1,5 @@
 <?php
+require('E:\xampp\htdocs\Lokalne Repetytorium\praktyki2022-marzec-clicker-api\src\login\api.php');
 function uriParse() {   
   
     $uri = trim($_SERVER['REQUEST_URI'], '/');
