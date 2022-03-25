@@ -12,38 +12,21 @@ if($status_jwt == 'Failed' || empty($status_jwt)){
     $auth_data = array("Token"=>$jwtGen);
     $auth_response = array("Status"=>"Success", "Data"=>$auth_data, "Message"=>$auth_message);
     $auth_response_enc = json_encode($auth_response);
-    echo $auth_response_enc;
+    //echo $auth_response_enc;
 }
-/*  TERAŹNIEJSZA DATA I CZAS W UTF +1
-TERAŹNIESZJĄ DATĘ NALEŻY SPRAWDZIĆ PRZY GENEROWANIU JWT
-TERAŹNIEJSZĄ DATĘ PRZEKAZAĆ DO ENDPOINTA GAME-STATES
-
+//  TERAŹNIEJSZA DATA I CZAS W UTF +1
 date_default_timezone_set('Europe/Warsaw');
 $today = date('Y-m-d H:i:s');
-echo $today;
-*/
+$JSON_today = array("startDatetime" => $today);
+$JSON_today_enc = json_encode($JSON_today);
+require('dataBaseInterface.php');
+insertData("INSERT INTO datatable (user_id, status) VALUES ('".$uuid."', '".$JSON_today_enc."')");
 
-//  ZAPISANIE WYGENEROWANEGO JWT PO STRONIE GRY
-/*
-$cookie_name = "JWT";
-$cookie_value = $jwtGen;
+/*  ZAPISANIE WYGENEROWANEGO INFORMACJI PO STRONIE GRY | LOCAL STORAGE!
+$cookie_name = "JSON_Data";
+$cookie_value = $auth_response_enc;
 $cookie_expire = time()+(60*60*24*365);
 setcookie($cookie_name, $cookie_value, $cookie_expire, "/");
-*/
-
-/*  DODANIE NOWEGO REKORDU DO BAZY DANYCH
-    USER_ID PRZYJMUJE WARTOŚĆ WYGENEROWANEGO WCZEŚNIEJ UUID
-*/
-/*
-    require('dataBaseInterface.php');
-    $result = mysqli_query(
-        openCon(),
-        "INSERT INTO datatable (user_id) VALUES ($uuid)");
-        closeCon(openCon());
-    //   insertData("INSERT INTO datatable (user_id) VALUES (\'{$uuid}\')");
-    //  "INSERT INTO `dataTable` (user_id) VALUES ($jwt)"
-    
-
 
 /*  WCZEŚNIEJSZY KOD TESTOWY  
 if(isset($_GET['user_id']) && $_GET['user_id']!=""){

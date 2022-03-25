@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `datatable` (
   `id` int(11) NOT NULL,
-  `user_id` tinytext NOT NULL,
+  `user_id` char(36) NOT NULL,
   `status` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`status`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

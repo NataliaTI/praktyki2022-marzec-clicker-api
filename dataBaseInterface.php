@@ -55,12 +55,11 @@ function insertData($insertData){
     if(mysqli_query(openCon(), $sql)){
 
     echo "Records inserted successfully.";
-}
- else{
+} else {
     
     echo "ERROR: Could not able to execute $sql. " . mysqli_error(openCon());
 
-}
+    }
 }
 /* szukanie po id */
 function find($id)
