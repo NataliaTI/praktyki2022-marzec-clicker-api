@@ -19,17 +19,6 @@ function gen_uuid() {
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 
 }
-/*  STATUS_JWT
-    PRZYJĄŁEM, ŻE
-        $status_jwt = false
-        OZNACZA, ŻE
-            $jwtGen
-            WYGENEROWAŁ SIĘ DOBRZE
-        $status_jwt = true
-        OZNACZA, ŻE
-            $jwtGen
-            WYGENEROWAŁ SIĘ ŹLE
-*/
 $status_uuid='';
 if(isset($uuid) && !empty($uuid)) {
     $status_uuid = 'Succeded';

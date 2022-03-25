@@ -2,4 +2,4 @@ RewriteEngine On
 
 # route all requests to index.php file
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^(.*)$ public/index.php [QSA,L]
