@@ -19,7 +19,7 @@ date_default_timezone_set('Europe/Warsaw');
 $today = date('Y-m-d H:i:s');
 $JSON_today = array("startDatetime" => $today);
 $JSON_today_enc = json_encode($JSON_today);
-require('../interface/dataBaseInterface.php');
+require(__DIR__.'/../interface/dataBaseInterface.php');
 insertData("INSERT INTO datatable (user_id, status) VALUES ('".$uuid."', '".$JSON_today_enc."')");
 
 /*  ZAPISANIE WYGENEROWANEGO INFORMACJI PO STRONIE GRY | LOCAL STORAGE!

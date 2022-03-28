@@ -12,7 +12,7 @@ function uriParse() {
 //var_dump(uriParse());
 
 const ROUTE_MAP = [
-    'login' => 'api.php',
+    'login' => 'login.php',
     'game-states' => 'writeAndRead.php'
 ];
 
