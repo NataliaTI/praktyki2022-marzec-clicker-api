@@ -15,6 +15,7 @@ if($status_uuid == 'Failed' || empty($status_uuid)){
 }else{
     $headers = array('alg'=>'HS256','typ'=>'JWT');
     $payload = array($uuid);
+    //$payload = array("test");
     function base64url_encode($str) {
         return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
     }
