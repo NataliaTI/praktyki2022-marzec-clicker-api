@@ -1,5 +1,4 @@
 <?php
-require('E:\xampp\htdocs\Lokalne Repetytorium\praktyki2022-marzec-clicker-api\src\login\api.php');
 function uriParse() {   
   
     $uri = trim($_SERVER['REQUEST_URI'], '/');
@@ -9,7 +8,7 @@ function uriParse() {
         'segments' => $uri_segments,
         'segment_count' => count($uri_segments)
     ];
-}
+}   
 //var_dump(uriParse());
 
 const ROUTE_MAP = [
@@ -24,6 +23,6 @@ $uriTable = ROUTE_MAP;
 {
 if(isset($uriTable[$uri_control]))
 
-require(dirname(__FILE__).'/'.$uriTable[$uri_control]);
+require(__DIR__.'/../endpoint/'.$uriTable[$uri_control]);
 }
 }

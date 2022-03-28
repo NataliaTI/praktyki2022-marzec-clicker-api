@@ -1,5 +1,6 @@
 <?php
 require(__DIR__.'/../src/library/router.php');
-
-__DIR__.comparison();
+//require(__DIR__.'/../src/endpoint/writeAndRead.php');  
+//__DIR__.dat();
+comparison();
 ?>
