@@ -12,7 +12,7 @@ if($status_jwt == 'Failed' || empty($status_jwt)){
     $auth_data = array("Token"=>$jwtGen);
     $auth_response = array("Status"=>"Success", "Data"=>$auth_data, "Message"=>$auth_message);
     $auth_response_enc = json_encode($auth_response);
-    //echo $auth_response_enc;
+    echo $auth_response_enc;
 }
 //  TERAŹNIEJSZA DATA I CZAS W UTF +1
 date_default_timezone_set('Europe/Warsaw');
