@@ -9,7 +9,7 @@ function openCon()
  $db = "clicker";
 
  $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
- 
+
  return $conn;
  }
 
@@ -22,7 +22,7 @@ function closeCon($conn)
 /* tworzenie polecenia sql do bazy danych */
  function typeData($dates)
  {
-    $collect = "SELECT $dates FROM dataTable";
+    $collect = "SELECT $dates FROM datatable";
 
     return $collect;
  }
@@ -66,7 +66,7 @@ function find($id)
 {
 
     $statement = "
-        SELECT id, userid, status FROM dataTable WHERE id = $id";
+        SELECT id, userid, status FROM datatable WHERE id = '$id'";
     
     if ($result = mysqli_query(openCon(), $statement)) {
 
@@ -83,7 +83,7 @@ function delete($id)
 {
 
     $statement = "
-        DELETE FROM dataTable
+        DELETE FROM datatable
         WHERE id = :id;
     ";
 
