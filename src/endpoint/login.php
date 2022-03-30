@@ -12,6 +12,7 @@ if($status_jwt == 'Failed' || empty($status_jwt)){
     $auth_data = array("Token"=>$jwtGen);
     $auth_response = array("Status"=>"Success", "Data"=>$auth_data, "Message"=>$auth_message);
     $auth_response_enc = json_encode($auth_response);
+    header("HTTP/1.1 200 Ok");
     echo $auth_response_enc;
 }
 //  TERAŹNIEJSZA DATA I CZAS W UTF +1
