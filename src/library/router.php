@@ -10,19 +10,27 @@ function uriParse() {
     ];
 }   
 //var_dump(uriParse());
+$endpointSegmentNum = 2;
+if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'praktyki-trol-clicker-api.herokuapp.com') {
+    $endpointSegmentNum = 0;
+}
 
 const ROUTE_MAP = [
     'login' => 'login.php',
     'game-states' => 'writeAndRead.php'
 ];
 
-function comparison(){
-$url_parsed = uriParse();
-$uri_control = $url_parsed['segments'][2];
-$uriTable = ROUTE_MAP;
-{
-if(isset($uriTable[$uri_control]))
+function comparison() {
 
-require(__DIR__.'/../endpoint/'.$uriTable[$uri_control]);
-}
+    global $endpointSegmentNum;
+    $url_parsed = uriParse();
+
+    if (isset($url_parsed['segments'][$endpointSegmentNum])) {
+        $uri_control = $url_parsed['segments'][$endpointSegmentNum];
+    } 
+    $uriTable = ROUTE_MAP;
+
+    if(isset($uri_control) AND isset($uriTable[$uri_control])) {
+        require(__DIR__.'/../endpoint/'.$uriTable[$uri_control]);
+    }
 }
