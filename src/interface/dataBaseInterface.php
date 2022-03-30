@@ -3,10 +3,10 @@
 /* nawiazywanie polaczenia z baza danych */
 function openCon()
  {
- $dbhost = "sql302.epizy.com";
- $dbuser = "epiz_31397902";
- $dbpass = "8JoiI3dyXu";
- $db = "epiz_31397902_clicker";
+ $dbhost = "localhost";
+ $dbuser = "root";
+ $dbpass = "ZAQ!2wsx";
+ $db = "clicker";
 
  $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
 
