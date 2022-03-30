@@ -5,7 +5,7 @@
 
 function openCon()
 {
-     if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com'){
+    if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com'){
          $dbhost = "remotemysql.com";
           $dbuser = "qdSlF8a935";
           $dbpass = "bEsuR7hdq2";
@@ -18,7 +18,7 @@ function openCon()
     }
 
  $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
-
+ 
  return $conn;
  }
 
@@ -31,7 +31,7 @@ function closeCon($conn)
 /* tworzenie polecenia sql do bazy danych */
  function typeData($dates)
  {
-    $collect = "SELECT $dates FROM datatable";
+    $collect = "SELECT $dates FROM dataTable";
 
     return $collect;
  }
@@ -73,11 +73,9 @@ function insertData($insertData){
 /* szukanie po id */
 function find($id)
 {
-    if(!is_numeric($id)){
-        $id = 'null';
-    }
+
     $statement = "
-        SELECT id, userid, status FROM datatable WHERE id = '$id'";
+        SELECT id, userid, status FROM dataTable WHERE id = $id";
     
     if ($result = mysqli_query(openCon(), $statement)) {
 
@@ -92,11 +90,9 @@ function find($id)
 
 function delete($id)
 {
-    if(!is_numeric($id)){
-        $id = 'null';
-    }
+
     $statement = "
-        DELETE FROM datatable
+        DELETE FROM dataTable
         WHERE id = :id;
     ";
 
