@@ -1,12 +1,21 @@
 <?php
 
 /* nawiazywanie polaczenia z baza danych */
+/*if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'domena.pl')*/
+
 function openCon()
- {
- $dbhost = "remotemysql.com";
- $dbuser = "qdSlF8a935";
- $dbpass = "bEsuR7hdq2";
- $db = "qdSlF8a935";
+{
+     if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com'){
+         $dbhost = "remotemysql.com";
+          $dbuser = "qdSlF8a935";
+          $dbpass = "bEsuR7hdq2";
+          $db = "qdSlF8a935";
+    }else{
+        $dbhost = "localhost";
+        $dbuser = "root";
+        $dbpass = "ZAQ!2wsx";
+        $db = "clicker";
+     }
 
  $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
  
