@@ -70,10 +70,12 @@ function insertData($insertData){
 
     }
 }
-/* szukanie po id 
+/* szukanie po id */
 function find($id)
 {
-    
+    if(!is_numeric($id)){
+        $id = 'null';
+    }
     $statement = "
         SELECT id, userid, status FROM datatable WHERE id = '$id'";
     
@@ -90,7 +92,9 @@ function find($id)
 
 function delete($id)
 {
-
+    if(!is_numeric($id)){
+        $id = 'null';
+    }
     $statement = "
         DELETE FROM datatable
         WHERE id = :id;
@@ -108,7 +112,6 @@ function delete($id)
     
     }
     }
-*/
 ?>
 
 
