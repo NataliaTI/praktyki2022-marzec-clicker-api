@@ -1,21 +1,20 @@
 <?php
 /*  ABY SPRAWDZIĆ CZY JWT ZOSTAŁ WYGENEROWANY
     SKORZYSTAJ ZE ZMIENNEJ
-        $status_jwt
+        $status_jwt  
 
-    ABY WYKORZYSTAĆ WYGENEROWANY JWT
+    ABY WYKORZYSTAĆ WYGENEROWANE UUID W TWOIM KODZIE
     SKORZYSTAJ ZE ZMIENNEJ
         $jwtGen
 */
 include('uuid.php');
 $status_jwt = ''; 
 if($status_uuid == 'Failed' || empty($status_uuid)){
-    $status_jwt = true;
+    $status_jwt = 'Failed';
     return;
 }else{
     $headers = array('alg'=>'HS256','typ'=>'JWT');
     $payload = array($uuid);
-    //$payload = array("test");
     function base64url_encode($str) {
         return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
     }
@@ -34,8 +33,3 @@ if($status_uuid == 'Failed' || empty($status_uuid)){
         $status_jwt = 'Failed';
     }
 }
-//  TESTOWE: WYŚWIETLENIE $status_jwt
-//echo $status_jwt;
-
-//  TESTOWE: WYŚWIETLENIE $jwtGen
-//echo $jwtGen;

@@ -3,10 +3,10 @@
 /* nawiazywanie polaczenia z baza danych */
 function openCon()
  {
- $dbhost = "sql302.epizy.com";
- $dbuser = "epiz_31397902";
- $dbpass = "8JoiI3dyXu";
- $db = "epiz_31397902_clicker";
+ $dbhost = "remotemysql.com";
+ $dbuser = "qdSlF8a935";
+ $dbpass = "bEsuR7hdq2";
+ $db = "qdSlF8a935";
 
  $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
  
