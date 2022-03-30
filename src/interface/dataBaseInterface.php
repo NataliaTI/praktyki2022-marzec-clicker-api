@@ -70,10 +70,10 @@ function insertData($insertData){
 
     }
 }
-/* szukanie po id */
+/* szukanie po id 
 function find($id)
 {
-
+    
     $statement = "
         SELECT id, userid, status FROM datatable WHERE id = '$id'";
     
@@ -108,6 +108,7 @@ function delete($id)
     
     }
     }
+*/
 ?>
 
 
