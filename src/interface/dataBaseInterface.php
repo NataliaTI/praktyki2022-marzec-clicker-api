@@ -70,42 +70,42 @@ function insertData($insertData){
 
     }
 }
-/* szukanie po id */
-function find($id)
-{
+// /* szukanie po id */
+// function find($id)
+// {
 
-    $statement = "
-        SELECT id, userid, status FROM dataTable WHERE id = $id";
+//     $statement = "
+//         SELECT id, userid, status FROM dataTable WHERE id = $id";
 
-    if ($result = mysqli_query(openCon(), $statement)) {
+//     if ($result = mysqli_query(openCon(), $statement)) {
 
-        while ($row = mysqli_fetch_assoc($result)) {
+//         while ($row = mysqli_fetch_assoc($result)) {
 
-            printf ("%s (%s)\n", $row["$statement"]);
-        }
+//             printf ("%s (%s)\n", $row["$statement"]);
+//         }
 
-        mysqli_free_result($result);
-    }
-}
+//         mysqli_free_result($result);
+//     }
+// }
 
-function delete($id)
-{
+// function delete($id)
+// {
 
-    $statement = "
-        DELETE FROM dataTable
-        WHERE id = :id;
-    ";
+//     $statement = "
+//         DELETE FROM dataTable
+//         WHERE id = :id;
+//     ";
 
-    if (mysqli_query(openCon(), $statement)) {
+//     if (mysqli_query(openCon(), $statement)) {
 
-        echo "Record deleted successfully";
+//         echo "Record deleted successfully";
 
-    } 
+//     } 
 
-    else {
+//     else {
 
-        echo "Error deleting record: " . mysqli_error($conn);
+//         echo "Error deleting record: " . mysqli_error($conn);
 
-    }
-    }
+//     }
+//     }
 ?>
