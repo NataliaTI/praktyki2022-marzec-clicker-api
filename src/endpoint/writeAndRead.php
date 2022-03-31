@@ -4,7 +4,9 @@
 
 
 
-
+if(isset($_GET['user_id']) && $_GET['user_id']!=""){
+    include('dataBaseInterface.php');
+}
 
 function getHeaders(){
 
@@ -98,21 +100,17 @@ function writeData($user_id){
 
 /* methods implement */
 if(getHeaders()==''){
-    
-        header("HTTP/1.1 401 Unathorized");    
-     
+header('Error 401');
 }
 else{
-getHeaders();
-getHash(getHeaders());
-getDecodedToken(getHeaders());
+$decodedToken = getDecodedToken( getHash(getHeaders()));
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    readData(getDecodedToken());
+    readData($decodedToken);
 } 
 else if($_SERVER['REQUEST_METHOD']=='PUT')
 {
-    writeData(getDecodedToken());
+    writeData($decodedToken);
 }
 }
 
