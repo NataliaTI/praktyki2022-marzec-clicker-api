@@ -38,9 +38,7 @@ CREATE TABLE `datatable` (
 --
 
 INSERT INTO `datatable` (`id`, `user_id`, `status`) VALUES
-(1, 32, '{\"startDatetime\":\"2022-03-28 14:04:21\"}',
-'{\"startDatetime\":\"2022-03-28 14:04:21\"}'
-),
+(1, 32, '{\"startDatetime\":\"2022-03-28 14:04:21\"}'),
 (2, 0, '{\"startDatetime\":\"2022-03-29 09:30:14\"}');
 
 --
