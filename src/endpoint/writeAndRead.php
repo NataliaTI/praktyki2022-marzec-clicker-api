@@ -99,6 +99,7 @@ function writeData($user_id){
 }
 
 /* methods implement */
+
 getHeaders();
 getHash(getHeaders());
 getDecodedToken(getHeaders());
