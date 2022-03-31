@@ -3,10 +3,10 @@
    require(__DIR__.'/../interface/dataBaseInterface.php');
 
 
-/*
+
 if(isset($_GET['user_id']) && $_GET['user_id']!=""){
+    include('dataBaseInterface.php');
 }
-*/
 
 function getHeaders(){
 
