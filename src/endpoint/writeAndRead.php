@@ -99,18 +99,19 @@ function writeData($user_id){
 }
 
 /* methods implement */
-
-getHeaders();
-getHash(getHeaders());
-getDecodedToken(getHeaders());
+if(getHeaders()==''){
+header('Error 401');
+}
+else{
+$decodedToken = getDecodedToken( getHash(getHeaders()));
 
 if($_SERVER['REQUEST_METHOD']=='GET'){
-    readData(getDecodedToken());
+    readData($decodedToken);
 } 
 else if($_SERVER['REQUEST_METHOD']=='PUT')
 {
-    writeData(getDecodedToken());
+    writeData($decodedToken);
 }
-
+}
 
 ?>
