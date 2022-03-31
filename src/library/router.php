@@ -23,7 +23,7 @@ function uriParse() {
  {
     header("HTTP/1.1 404 Not Found");    
  }
-   
+
 }
 //var_dump(uriParse());
 $endpointSegmentNum = 0;
