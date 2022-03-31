@@ -3,14 +3,15 @@
    require(__DIR__.'/../interface/dataBaseInterface.php');
 
 
-/*
+
 if(isset($_GET['user_id']) && $_GET['user_id']!=""){
+    include('dataBaseInterface.php');
 }
-*/
 
 function getHeaders(){
 
     $headers = getallheaders();
+    
     $parsHeader = str_replace("Bearer ","",$headers['Authorization']);
 
         return $parsHeader;
@@ -57,17 +58,19 @@ function readData($user_id){
 }
     
    // $user_id=32;
-function writeData(){
-if($result = mysqli_query(openCon(),"
-    SELECT COUNT(`user_id`) as count FROM `datatable` WHERE `user_id` = '$user_id'"))
+   
+function writeData($user_id){
+    if($result = mysqli_query(openCon(),"
+      SELECT COUNT(`user_id`) as count FROM `datatable` WHERE `user_id` = '$user_id'"))
 {
-    $row = mysqli_fetch_array($result);
+         $row = mysqli_fetch_array($result);
 
+         $entityBody = file_get_contents('php://input');
 
-    if ($row ['count']){
+      if ($row ['count']){
     
-        $sql = "
-        UPDATE 'datatable' SET 'status'= '$dataFromWeb' WHERE 'user_id' = '$user_id'";
+       $sql = "
+        UPDATE datatable SET status= '$entityBody' WHERE user_id = '$user_id'";
 
         if(mysqli_query(openCon(), $sql))
         {
@@ -75,33 +78,39 @@ if($result = mysqli_query(openCon(),"
       } 
       else
        {
-          echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+          echo "ERROR: Could not able to execute $sql. " . mysqli_error(openCon());
         }
 
-    closeCon(openCon());
+        closeCon(openCon());
     
-    return;
-}
-else
-{
-echo 'brak takiego użytkownika';
-}
-}
-else
-{
-echo 'Brak polaczenia z baza danych';
+         return;
+    }
+    else
+    {
+    echo 'brak takiego użytkownika';
+    }
+    }
+    else
+    {
+    echo 'Brak polaczenia z baza danych';
+    }
+
+ closeCon(openCon());
 }
 
-closeCon(openCon());
-}
-/*
-switch($_SERVER['REQUEST_METHOD'])
-{
-case 'GET': $the_request = &$_GET; break;
-case 'POST': $the_request = &$_POST; break;
-default:
-}
-*/
+/* methods implement */
 
- 
+getHeaders();
+getHash(getHeaders());
+getDecodedToken(getHeaders());
+
+if($_SERVER['REQUEST_METHOD']=='GET'){
+    readData(getDecodedToken());
+} 
+else if($_SERVER['REQUEST_METHOD']=='PUT')
+{
+    writeData(getDecodedToken());
+}
+
+
 ?>

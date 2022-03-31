@@ -3,6 +3,7 @@
 /* nawiazywanie polaczenia z baza danych */
 /*if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'domena.pl')*/
 function openCon()
+<<<<<<< HEAD
 {
     if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com'){
         $dbhost = "remotemysql.com";
@@ -20,6 +21,13 @@ function openCon()
     
     return $conn;
 }
+=======
+ {
+ $dbhost = "localhost";
+ $dbuser = "root";
+ $dbpass = "ZAQ!2wsx";
+ $db = "clicker";
+>>>>>>> develop
 
 /* zamykanie polaczenia z baza danych */
 function closeCon($conn)

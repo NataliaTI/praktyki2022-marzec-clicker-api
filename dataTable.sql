@@ -38,6 +38,7 @@ CREATE TABLE `datatable` (
 --
 
 INSERT INTO `datatable` (`id`, `user_id`, `status`) VALUES
+<<<<<<< HEAD
 (1, '5d3e5fa7-3d35-47c5-908d-9f278160d28a', '{\"startDatetime\":\"2022-03-28 10:25:59\"}'),
 (2, '07a54169-6585-480d-8108-9b41671acc8c', '{\"startDatetime\":\"2022-03-28 11:54:40\"}'),
 (3, '3e05b51b-a749-46b7-b843-51209d32cbf3', '{\"startDatetime\":\"2022-03-28 11:55:01\"}'),
@@ -164,6 +165,10 @@ INSERT INTO `datatable` (`id`, `user_id`, `status`) VALUES
 (124, '42d78e1d-7450-4043-9f93-4abf34217f8a', '{\"startDatetime\":\"2022-03-30 13:06:00\"}'),
 (125, '28a2ad43-1d04-4ca1-8ec3-0e5b0d279cca', '{\"startDatetime\":\"2022-03-30 13:06:01\"}'),
 (126, '337ad848-4644-4240-81eb-5a69c462d130', '{\"startDatetime\":\"2022-03-30 13:06:01\"}');
+=======
+(1, 32, '{\"startDatetime\":\"2022-03-28 14:04:21\"}'),
+(2, 0, '{\"startDatetime\":\"2022-03-29 09:30:14\"}');
+>>>>>>> develop
 
 --
 -- Indeksy dla zrzutów tabel
