@@ -6,7 +6,7 @@ function uriParse() {
 
         if(count($uri_segments)>2){
     
-            if ($uri_segments[2]=='login' OR $uri_segments[2]=='game-states'){
+            if ($uri_segments[0]=='login' OR $uri_segments[0]=='game-states'){
         return [
         'segments' => $uri_segments,
         'segment_count' => count($uri_segments)
@@ -26,7 +26,7 @@ function uriParse() {
    
 }
 //var_dump(uriParse());
-$endpointSegmentNum = 2;
+$endpointSegmentNum = 0;
     
     if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'praktyki-trol-clicker-api.herokuapp.com') {
     $endpointSegmentNum = 0;
