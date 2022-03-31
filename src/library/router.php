@@ -4,7 +4,7 @@ function uriParse() {
         $uri = trim($_SERVER['REQUEST_URI'], '/');
         $uri_segments = array_filter(explode('/', $uri));
 
-        if(count($uri_segments)>2){
+        if(count($uri_segments)>0){
     
             if ($uri_segments[0]=='login' OR $uri_segments[0]=='game-states'){
         return [
