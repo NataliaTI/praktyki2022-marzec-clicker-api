@@ -4,9 +4,7 @@
 
 
 
-if(isset($_GET['user_id']) && $_GET['user_id']!=""){
-    include('dataBaseInterface.php');
-}
+
 
 function getHeaders(){
 
@@ -99,7 +97,12 @@ function writeData($user_id){
 }
 
 /* methods implement */
-
+if(getHeaders()==''){
+    
+        header("HTTP/1.1 404 Not Found");    
+     
+}
+else{
 getHeaders();
 getHash(getHeaders());
 getDecodedToken(getHeaders());
@@ -111,6 +114,6 @@ else if($_SERVER['REQUEST_METHOD']=='PUT')
 {
     writeData(getDecodedToken());
 }
-
+}
 
 ?>
