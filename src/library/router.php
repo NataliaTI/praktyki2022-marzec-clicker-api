@@ -4,7 +4,11 @@ function uriParse() {
         $uri = trim($_SERVER['REQUEST_URI'], '/');
         $uri_segments = array_filter(explode('/', $uri));
 
+<<<<<<< HEAD
         if(count($uri_segments)==0){
+=======
+        if(count($uri_segments)>0){
+>>>>>>> 59857df8b42cd138d48ad717a77d3683b8716dbb
     
             if ($uri_segments[0]=='login' OR $uri_segments[0]=='game-states'){
         return [
@@ -23,7 +27,7 @@ function uriParse() {
  {
     header("HTTP/1.1 404 Not Found");    
  }
-   
+
 }
 //var_dump(uriParse());
 $endpointSegmentNum = 0;
