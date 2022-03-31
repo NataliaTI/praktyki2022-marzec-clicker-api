@@ -99,7 +99,7 @@ function writeData($user_id){
 /* methods implement */
 if(getHeaders()==''){
     
-        header("HTTP/1.1 404 Not Found");    
+        header("HTTP/1.1 401 Unathorized");    
      
 }
 else{
