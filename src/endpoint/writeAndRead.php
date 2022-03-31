@@ -8,7 +8,13 @@
 */
 /*
 if(isset($_GET['user_id']) && $_GET['user_id']!=""){
+<<<<<<< Updated upstream
     include('dataBaseInterface.php');
+=======
+}
+*/
+function getHeaders(){
+>>>>>>> Stashed changes
 
         
      HMACSHA256(
