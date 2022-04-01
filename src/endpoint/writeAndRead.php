@@ -4,9 +4,7 @@
 
 
 
-if(isset($_GET['user_id']) && $_GET['user_id']!=""){
-    include('dataBaseInterface.php');
-}
+
 
 function getHeaders(){
 
@@ -35,8 +33,10 @@ function getDecodedToken($parsHeader){
 
 //$user_id=32;
 function readData($user_id){
-      if($result = mysqli_query(openCon(),"
-        SELECT status FROM `datatable` WHERE user_id=$user_id")){
+    $query = sprintf("SELECT status FROM `datatable` WHERE user_id='%s'",
+    mysqli_real_escape_string(OpenCon(), $user_id));
+    $secureUser_id = mysqli_real_escape_string(OpenCon(), $user_id);
+      if($result = mysqli_query(OpenCon(),$query)){
  
         $row=mysqli_fetch_assoc($result);
        
