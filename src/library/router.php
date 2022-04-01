@@ -40,7 +40,7 @@ $endpointSegmentNum = 0;
 
 
 function comparison() {
-
+if(isset(uriParse())AND  !empty(uriParse())){
     global $endpointSegmentNum;
     $url_parsed = uriParse();
 
@@ -54,6 +54,10 @@ function comparison() {
     if(isset($uri_control) AND isset($uriTable[$uri_control])) {
         require(__DIR__.'/../endpoint/'.$uriTable[$uri_control]);
     }
+}
+else{
+    
+}
 
 
 
