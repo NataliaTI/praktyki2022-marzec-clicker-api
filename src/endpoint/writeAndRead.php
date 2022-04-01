@@ -53,7 +53,7 @@ function readData($user_id){
         closeCon(openCon());
         }
         else{ 
-            header("HTTP/1.1 204 No Content");
+            header("401 – Unauthorized");
     }
 }
     
