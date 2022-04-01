@@ -1,14 +1,14 @@
 <?php
 header("Content-Type:application/json");
-include('../functions/uuid.php');
-include('../functions/stat.php');
+require(__DIR__.'/../functions/uuid.php');
+require(__DIR__.'/../functions/stat.php');
 $status_uuid = statusChecker($uuid);
 
 //  SPRAWDZANIE POPRAWNOŚCI WYGENEROWANIA UUID
 if($status_uuid == "Succeded"){
     //  JEŚLI UUID POPRAWNIE WYGENEROWANE
     //  SPRAWDZANIE GENERACJI JWT
-    include('../functions/jwt.php');
+    require(__DIR__.'/../functions/jwt.php');
     $genJWT = generate_jwt($uuid);
     $status_jwt = statusChecker($genJWT);
     if($status_jwt == "Succeded"){
