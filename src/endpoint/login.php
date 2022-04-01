@@ -1,28 +1,59 @@
 <?php
 header("Content-Type:application/json");
-include('jwt.php'); // ZAŁĄCZA RÓWNIEŻ uuid.php
+include('../functions/uuid.php');
+include('../functions/stat.php');
+$status_uuid = statusChecker($uuid);
 
-$auth_message = "Success";
-if($status_jwt == 'Failed' || empty($status_jwt)){
-    if($status_uuid == 'Failed' || empty($status_uuid)){
-        $auth_message = "UUID Generation fail";
-    }else $auth_message = "JWT Generation fail";
-    $auth_response = array("Status"=>"Fail", "Data"=>null, "Message"=>$auth_message);
-    return;
+//  SPRAWDZANIE POPRAWNOŚCI WYGENEROWANIA UUID
+if($status_uuid == "Succeded"){
+    //  JEŚLI UUID POPRAWNIE WYGENEROWANE
+    //  SPRAWDZANIE GENERACJI JWT
+    include('../functions/jwt.php');
+    $genJWT = generate_jwt($uuid);
+    $status_jwt = statusChecker($genJWT);
+    if($status_jwt == "Succeded"){
+        //  JEŚLI JWT POPRAWNIE WYGENEROWANE
+        //  GENERACJA ODPOWIEDZI Z TOKENEM
+        $auth_data = array("Token"=>$genJWT);
+        $auth_message = "Success";
+        savingToDatabase($uuid);
+        $auth_response = array("Status"=>"Success", "Data"=>$auth_data, "Message"=>$auth_message);
+        header("HTTP/1.1 200 Ok");
+    }else {
+        //  JEŚLI JWT BŁĘDNIE WYGENEROWANE
+        //  GENERACJA ODPOWIEDZI Z INFORMACJĄ O BŁĘDZIE
+        JSONstatus($status_uuid, $status_jwt);
+    }
 }else{
-    $auth_data = array("Token"=>$jwtGen);
-    $auth_response = array("Status"=>"Success", "Data"=>$auth_data, "Message"=>$auth_message);
-    $auth_response_enc = json_encode($auth_response);
-    header("HTTP/1.1 200 Ok");
-    echo $auth_response_enc;
+    //  JEŚLI UUID BŁĘDNIE WYGENEROWANE
+    //  GENERACJA ODPOWIEDZI Z INFORMACJĄ O BŁĘDZIE
+    JSONstatus($status_uuid, null);
+}
+
+//  GENERACJA ODPOWIEZI Z INFORMACJĄ O BŁĘDZIE
+function JSONstatus($status_uuid, $status_jwt){
+    if($status_uuid == "Failed" || empty($status_uuid)){
+        $auth_message = "UUID generation fail";
+    }elseif($status_jwt == "Failed" || empty($status_jwt)){
+        $auth_message = "JWT generation fail";
+    }
+    return $auth_response = array("Status"=>"Fail", "Data"=>null, "Message"=>$auth_message);
+}
+
+//  GENERACJA ODPOWIEDZI
+$auth_response_enc = json_encode($auth_response);
+echo $auth_response_enc;
+
+//  GENERACJA CZASU I ZAPIS W BAZIE DANYCH
+function savingToDatabase($uuid){
+    date_default_timezone_set('Europe/Warsaw');
+    $today = date('Y-m-d H:i:s');
+    $JSON_today = array("startDatetime" => $today);
+    $JSON_today_enc = json_encode($JSON_today);
+    require(__DIR__.'/../interface/dataBaseInterface.php');
+    insertData("INSERT INTO datatable (user_id, status) VALUES ('".$uuid."', '".$JSON_today_enc."')");
 }
 //  TERAŹNIEJSZA DATA I CZAS W UTF +1
-date_default_timezone_set('Europe/Warsaw');
-$today = date('Y-m-d H:i:s');
-$JSON_today = array("startDatetime" => $today);
-$JSON_today_enc = json_encode($JSON_today);
-require(__DIR__.'/../interface/dataBaseInterface.php');
-insertData("INSERT INTO datatable (user_id, status) VALUES ('".$uuid."', '".$JSON_today_enc."')");
 
 /*  ZAPISANIE WYGENEROWANEGO INFORMACJI PO STRONIE GRY | LOCAL STORAGE!
 $cookie_name = "JSON_Data";
