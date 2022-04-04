@@ -1,7 +1,7 @@
 <?php
 //  ABY WYGENEROWAĆ UUID UŻYJ
 //      $uuid
-$uuid = gen_uuid();
+
 function gen_uuid() {
 
     $data = random_bytes(16);
