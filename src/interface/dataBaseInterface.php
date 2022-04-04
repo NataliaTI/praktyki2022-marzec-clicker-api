@@ -16,10 +16,10 @@ function openCon()
         $dbhost = "localhost";
         $dbuser = "root";
         $dbpass = "ZAQ!2wsx";
-    //    $db = "clicker";
+        $db = "clicker";
     }
     
-    $conn = new PDO('mysql:host=localhost;dbname=clicker', $dbuser, $dbpass) or die("Connect failed: %s\n". $conn -> error);
+    $conn = new PDO('mysql:host='.$dbhost.';dbname='.$db, $dbuser, $dbpass) or die("Connect failed: %s\n". $conn -> error);
     
     return $conn;
 }
