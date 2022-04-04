@@ -50,8 +50,9 @@ function savingToDatabase($uuid){
     $today = date('Y-m-d H:i:s');
     $JSON_today = array("startDatetime" => $today);
     $JSON_today_enc = json_encode($JSON_today);
-    require(__DIR__.'/../interface/dataBaseInterface.php');
-    insertData($uuid,$JSON_today_enc);
+      require(__DIR__.'/../interface/dataBaseInterface.php');
+ 
+        insertData($uuid,$JSON_today_enc);
 }
 //  TERAŹNIEJSZA DATA I CZAS W UTF +1
 

@@ -4,19 +4,22 @@
 /*if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'domena.pl')*/
 function openCon()
 {
-    if(ENV == "production"){
+    if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com')
+    {
         $dbhost = "remotemysql.com";
         $dbuser = "qdSlF8a935";
         $dbpass = "bEsuR7hdq2";
         $db = "qdSlF8a935";
-    }else{
+    }
+    else
+    {
         $dbhost = "localhost";
         $dbuser = "root";
         $dbpass = "ZAQ!2wsx";
-        $db = "clicker";
+    //    $db = "clicker";
     }
     
-    $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+    $conn = new PDO('mysql:host=localhost;dbname=clicker', $dbuser, $dbpass) or die("Connect failed: %s\n". $conn -> error);
     
     return $conn;
 }
@@ -39,11 +42,17 @@ function typeData($dates)
 
 /* zapisywanie do bazy danych */
 function insertData($uuid,$JSON_today_enc){
+    $db = openCon();
+  //  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = openCon()->prepare('INSERT INTO datatable (user_id, status) VALUES (:uuid, :JSON_today_enc)');
-    $sql -> bindParam(':uuid', $uuid, PDO::PARAM_STR);
-    $sql -> bindParam(':JSON_today_enc',$JSON_today_enc, PDO::PARAM_STR ); 
-    $sql -> execute();
+    
+    $sql = 'INSERT INTO datatable (user_id,status) VALUES (:uuid ,:JSON_today_enc )';
+
+    $stmt = $db->prepare($sql);
+    
+    $stmt->bindValue(":uuid", $uuid, PDO::PARAM_STR);
+    $stmt ->bindValue(':JSON_today_enc',$JSON_today_enc, PDO::PARAM_STR ); 
+    $stmt = $stmt-> execute();
 }
 // /* szukanie po id */
 // function find($id)
