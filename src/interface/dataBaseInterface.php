@@ -4,7 +4,7 @@
 /*if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'domena.pl')*/
 function openCon()
 {
-    if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com'){
+    if(ENV == "production"){
         $dbhost = "remotemysql.com";
         $dbuser = "qdSlF8a935";
         $dbpass = "bEsuR7hdq2";

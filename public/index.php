@@ -1,4 +1,5 @@
 <?php
+define("ENV", (!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com')?"production":"development");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header('Access-Control-Allow-Methods: GET, PUT, OPTIONS');
