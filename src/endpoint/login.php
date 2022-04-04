@@ -2,6 +2,7 @@
 header("Content-Type:application/json");
 require(__DIR__.'/../functions/uuid.php');
 require(__DIR__.'/../functions/stat.php');
+$uuid = gen_uuid();
 $status_uuid = statusChecker($uuid);
 
 //  SPRAWDZANIE POPRAWNOŚCI WYGENEROWANIA UUID
