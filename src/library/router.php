@@ -29,6 +29,11 @@ const ROUTE_MAP = [
 
 
 function comparison() {
+<<<<<<< HEAD
+=======
+if(isset(uriParse())AND  !empty(uriParse())){
+    global $endpointSegmentNum;
+>>>>>>> 8164811564157723086ae45788848a1637a4ceab
     $url_parsed = uriParse();
     //print_r('eaffef');
     //print_r($endpointSegmentNum);
@@ -44,4 +49,14 @@ function comparison() {
     if(isset($uri_control) AND isset($uriTable[$uri_control])) {
         require(__DIR__.'/../endpoint/'.$uriTable[$uri_control]);
     }
+<<<<<<< HEAD
+=======
+}
+else{
+    
+}
+
+
+
+>>>>>>> 8164811564157723086ae45788848a1637a4ceab
 }
