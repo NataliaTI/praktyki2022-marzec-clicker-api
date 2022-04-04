@@ -33,7 +33,7 @@ function comparison() {
     //print_r('eaffef');
     //print_r($endpointSegmentNum);
     $endpointSegmentNum = segmentNum();
-    print_r($url_parsed['segments'][$endpointSegmentNum]);
+    //print_r($url_parsed['segments'][$endpointSegmentNum]);
     if (isset($url_parsed['segments'][$endpointSegmentNum])) {
         $uri_control = $url_parsed['segments'][$endpointSegmentNum];
     } 
