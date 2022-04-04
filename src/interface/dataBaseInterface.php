@@ -4,7 +4,7 @@
 /*if (!empty($_SERVER['HTTP_HOST']) AND $_SERVER['HTTP_HOST'] == 'domena.pl')*/
 function openCon()
 {
-    if(!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST']=='praktyki-trol-clicker-api.herokuapp.com'){
+    if(ENV == "production"){
         $dbhost = "remotemysql.com";
         $dbuser = "qdSlF8a935";
         $dbpass = "bEsuR7hdq2";
@@ -36,37 +36,14 @@ function typeData($dates)
 }
 
 /* pobieranie danych z bazy danych */
-function collectData($tab){
-    
-    $query = $tab;
-    
-    if ($result = mysqli_query(openCon(), $query)) 
-    {
-        
-        while ($row = mysqli_fetch_assoc($result))
-        {
-            printf ("%s (%s)\n", $row["$tab"]);
-        }
-        
-        
-        mysqli_free_result($result);
-    }
-    
-    /* zamkniecie polaczenia */
-    closeCon(openCon()); 
-}
+
 /* zapisywanie do bazy danych */
-function insertData($insertData){
-    
-    $sql = $insertData;
-    
-    if(mysqli_query(openCon(), $sql)){
-        //echo "Records inserted successfully.";
-    } else {
-        
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error(openCon());
-        
-    }
+function insertData($uuid,$JSON_today_enc){
+
+    $sql = openCon()->prepare('INSERT INTO datatable (user_id, status) VALUES (:uuid, :JSON_today_enc)');
+    $sql -> bindParam(':uuid', $uuid, PDO::PARAM_STR);
+    $sql -> bindParam(':JSON_today_enc',$JSON_today_enc, PDO::PARAM_STR ); 
+    $sql -> execute();
 }
 // /* szukanie po id */
 // function find($id)
