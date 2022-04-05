@@ -1,6 +1,6 @@
 <?php
 
-require(__DIR__.'/../interface/dataBaseInterface.php');
+require(__DIR__.'/../functions/dataBaseInterface.php');
 
 
 
@@ -62,7 +62,7 @@ function readData($user_id)
         }
 }
     
-   // $user_id=32;
+
    
 function writeData($user_id)
 {
