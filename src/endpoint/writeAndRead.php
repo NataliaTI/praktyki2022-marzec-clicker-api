@@ -7,8 +7,8 @@ require(__DIR__.'/../functions/dataBaseInterface.php');
 
 
 function getHeaders(){
-    if($headers['Authorization']!=null){
-        $headers = getallheaders();
+    $headers = getallheaders();
+    if(isset($headers['Authorization'])){
     
         $parsHeader = str_replace("Bearer ","",$headers['Authorization']);
 
@@ -16,7 +16,7 @@ function getHeaders(){
     }
     else 
     {
-        header("401 – Unauthorized");
+        header("HTTP/1.1 401 Unauthorized");
     }
 
 
