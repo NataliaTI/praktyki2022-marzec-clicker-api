@@ -7,12 +7,19 @@ require(__DIR__.'/../functions/dataBaseInterface.php');
 
 
 function getHeaders(){
-
+    if($headers['Authorization']!=null){
         $headers = getallheaders();
     
         $parsHeader = str_replace("Bearer ","",$headers['Authorization']);
 
         return $parsHeader;
+    }
+    else 
+    {
+        header("401 – Unauthorized");
+    }
+
+
 }
 
 
@@ -32,7 +39,7 @@ function getDecodedToken($parsHeader)
 }
   
 
-//$user_id=32;
+
 function readData($user_id)
 {
     $query = sprintf("SELECT status FROM `datatable` WHERE user_id='%s'",
