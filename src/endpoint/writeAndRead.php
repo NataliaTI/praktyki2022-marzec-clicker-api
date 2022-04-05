@@ -62,7 +62,7 @@ function readData($user_id)
         }
 }
     
-   // $user_id=32;
+
    
 function writeData($user_id)
 {

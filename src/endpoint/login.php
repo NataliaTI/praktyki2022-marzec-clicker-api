@@ -5,7 +5,7 @@ require(__DIR__.'/../functions/stat.php');
 require(__DIR__.'/../functions/jsonstatus.php');
 require(__DIR__.'/../functions/dateenc.php');
 require(__DIR__.'/../functions/jwt.php');
-require(__DIR__.'/../interface/dataBaseInterface.php');
+require(__DIR__.'/../functions/dataBaseInterface.php');
 $uuid = gen_uuid();
 $status_uuid = statusChecker($uuid);
 $today = dateEnc();
