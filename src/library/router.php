@@ -1,17 +1,15 @@
 <?php
 function segmentNum(){
-    $uri = trim($_SERVER['REQUEST_URI'], '/');
-    $uri_segments = array_filter(explode('/', $uri));
-    $endpointSegmentNum = count($uri_segments) - 1;
+    $segments = segmenting();
+    $endpointSegmentNum = count($segments) - 1;
     return $endpointSegmentNum;
 }
-function uriParse() {   
-    $uri = trim($_SERVER['REQUEST_URI'], '/');
-    $uri_segments = array_filter(explode('/', $uri));
+function uriParse() {
+    $segments = segmenting();
     //print_r($endpointSegmentNum);
-    if ($uri_segments[segmentNum()] == 'login'|| $uri_segments[segmentNum()] == 'game-states'){
+    if ($segments[segmentNum()] == 'login'|| $segments[segmentNum()] == 'game-states'){
         return[
-            'segments' => $uri_segments
+            'segments' => $segments
         ];
     }else{
         header("HTTP/1.1 404 Not Found");
@@ -22,7 +20,11 @@ const ROUTE_MAP = [
     'login' => 'login.php',
     'game-states' => 'writeAndRead.php'
 ];
-
+function segmenting(){
+    $uri = trim($_SERVER['REQUEST_URI'], '/');
+    $uri_segments = array_filter(explode('/', $uri));
+    return $uri_segments;
+}
 
 function comparison() {
     $url_parsed = uriParse();
