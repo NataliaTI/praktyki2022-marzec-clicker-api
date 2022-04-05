@@ -1,5 +1,4 @@
 <?php
-
 require(__DIR__.'/../functions/dataBaseInterface.php');
 
 
@@ -16,7 +15,7 @@ function getHeaders(){
     }
     else 
     {
-        header("HTTP/1.1 401 Unauthorized");
+        header("HTTP/1.1 200 Ok");
     }
 
 
@@ -33,7 +32,7 @@ function getDecodedToken($parsHeader)
 {
         $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode ('.',$parsHeader )[1]))));
         $parsHeader=$decodeJWT;
-        $parsHeader = json_encode($decodeJWT);//to uzyc zaraz
+        $parsHeader = json_encode($decodeJWT);
 
         return $user_id = $parsHeader;
 }
