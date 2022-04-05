@@ -1,6 +1,6 @@
 <?php
 
-require(__DIR__.'/../interface/dataBaseInterface.php');
+require(__DIR__.'/../functions/dataBaseInterface.php');
 
 
 
