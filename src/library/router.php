@@ -2,12 +2,8 @@
 function segmentNum(){
     $uri = trim($_SERVER['REQUEST_URI'], '/');
     $uri_segments = array_filter(explode('/', $uri));
-    $i = 0;
-    foreach($uri_segments as $segments){
-        $i++;
-    }
-    $i--;
-    return $endpointSegmentNum = $i;
+    $endpointSegmentNum = count($uri_segments) - 1;
+    return $endpointSegmentNum;
 }
 function uriParse() {   
     $uri = trim($_SERVER['REQUEST_URI'], '/');
