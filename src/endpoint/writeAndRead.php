@@ -1,4 +1,5 @@
 <?php
+
 require(__DIR__.'/../functions/dataBaseInterface.php');
 
 
@@ -15,7 +16,7 @@ function getHeaders(){
     }
     else 
     {
-        header("HTTP/1.1 200 Ok");
+        header("HTTP/1.1 401 Unauthorized");
     }
 
 
@@ -32,7 +33,7 @@ function getDecodedToken($parsHeader)
 {
         $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode ('.',$parsHeader )[1]))));
         $parsHeader=$decodeJWT;
-        $parsHeader = json_encode($decodeJWT);
+        $parsHeader = json_encode($decodeJWT);//to uzyc zaraz
 
         return $user_id = $parsHeader;
 }
@@ -64,7 +65,7 @@ function readData($user_id)
         }
         else
         { 
-            header("HTTP/1.1 401 Unauthorized");
+            header("401 – Unauthorized");
         }
 }
     
@@ -114,7 +115,7 @@ function writeData($user_id)
 /* methods implement */
     if(getHeaders()=='')
     {
-        header("HTTP/1.1 401 Unauthorized");
+        header('Error 401');
     }
     else
     {
