@@ -1,9 +1,9 @@
 <?php
-//  DO GENERACJI JWT UŻYJ FUNKCJI
-//      generate_jwt($zmienna)
-//  JAKO 
-//      $zmienna
-//  WPISZ INFORMACJE DO PRZEKAZANIA W TOKENIE
+/**
+ * Generating JWT
+ * @param $payload - JWT payload message
+ * @return $jwt - Encoded JWT
+ */
 function base64url_encode($str) {
     return rtrim(strtr(base64_encode($str), '+/', '-_'), '=');
 }
