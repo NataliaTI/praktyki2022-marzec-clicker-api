@@ -93,7 +93,7 @@ function writeData($user_id)
 
     closeCon($conn);
 }
-$sq = writeData("5d3e5fa7-3d35-47c5-908d-9f278160d28a");
+//$sq = writeData("5d3e5fa7-3d35-47c5-908d-9f278160d28a");
 /* methods implement */
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
     {
