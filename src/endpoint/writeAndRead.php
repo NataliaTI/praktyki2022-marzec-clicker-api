@@ -31,9 +31,11 @@ function getHash($parsHeader){
 //decoding token
 function getDecodedToken($parsHeader)
 {
-        $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode ('.',$parsHeader )[1]))));
+
+  $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode ('.',$parsHeader )[0]))));       
+   
         $parsHeader=$decodeJWT;
-        $parsHeader = json_encode($decodeJWT);//to uzyc zaraz
+        $parsHeader = json_encode($decodeJWT);
 
         return $user_id = $parsHeader;
 }
@@ -81,10 +83,12 @@ function writeData($user_id)
             if ($row ['count'])
             {
                 
-    $pdo = openCon();
-    $sql = "UPDATE datatable SET status= '$entityBody' WHERE user_id = ':user_id'";
-$statement = $pdo->prepare($sql);
-$statement ->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+                
+                $sql = "UPDATE datatable SET status= ':entityBody' WHERE user_id = ':user_id'";
+                $statement = $conn->prepare($sql);
+                $statement ->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+                $statement ->bindParam(':entityBody', $entityBody, PDO::PARAM_STR);
+                
                 if($statement->execute())
                 {
                    echo "Records were updated successfully.";
