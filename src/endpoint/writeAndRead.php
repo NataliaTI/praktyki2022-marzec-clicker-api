@@ -95,7 +95,12 @@ function writeData($user_id)
 }
 $sq = writeData("5d3e5fa7-3d35-47c5-908d-9f278160d28a");
 /* methods implement */
-    if(getHeaders()=='')
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
+    {
+        header("HTTP/1.1 200 Ok");
+        exit();
+    }
+    elseif(getHeaders()=='' AND $_SERVER['REQUEST_METHOD']='OPTIONS')
     {
         header("HTTP/1.1 401 Unauthorized");
         exit();
