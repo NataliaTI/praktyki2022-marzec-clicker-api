@@ -27,7 +27,7 @@ function readData($user_id)
     
     if($row=$stmt->fetch(PDO::FETCH_ASSOC))
     {    
-        $output[] = json_decode($row['status']);
+        $output = json_decode($row['status'], true);
         $data_response = array("Status"=>"Success", "Data"=>$output);
         $data_response_enc = json_encode($data_response);
         
@@ -43,40 +43,33 @@ function readData($user_id)
 }
 
 
-   
 function writeData($user_id)
 {
    // print_r($user_id);
     $conn = openCon();
     if($stmt = $conn ->query("SELECT COUNT(`user_id`) as count FROM `datatable` WHERE `user_id` = '$user_id'"))
     {
-   
-        $row=$stmt->fetch(PDO::PARAM_STR);
-
-         $entityBody = file_get_contents('php://input');
-
-            if ($row ['count'])
+        $row = $stmt->fetch(PDO::PARAM_STR);
+        
+        if ($row['count'])
+        {
+            $entityBody = file_get_contents('php://input');
+            $sql = 'UPDATE datatable SET status = :entityBody WHERE user_id = :user_id';
+            $stmt = $conn->prepare($sql);   
+            $stmt->bindValue(':user_id', $user_id);
+            $stmt->bindValue(':entityBody', $entityBody); 
+            $stmt = $stmt->execute();
+            if($stmt)
             {
-                $sql = "UPDATE datatable SET status= ':entityBody' WHERE user_id = ':user_id'";
-                $stmt  = $conn->prepare($sql);   
-               // $stmt = $conn->prepare();
-    
-               $stmt->bindValue(":user_id", $user_id);
-               $stmt ->bindValue(':entityBody',$entityBody); 
-               $stmt = $stmt-> execute();
-                if($stmt)
-                {
-                   echo "Records were updated successfully.";
-                } 
-                else
-                {
-                    echo "ERROR: Could not able to execute ";
-                }
-
-            closeCon($conn);
-    
-             return;
+                echo "Records were updated successfully.";
+            } 
+            else
+            {
+                echo "ERROR: Could not able to execute ";
             }
+
+            return;
+        }
         else
         {
          echo 'brak takiego użytkownika';
@@ -87,7 +80,7 @@ function writeData($user_id)
         echo 'Brak polaczenia z baza danych';
     }
 
-    closeCon($conn);
+    $conn = null;
 }
 //$sq = writeData("5d3e5fa7-3d35-47c5-908d-9f278160d28a");
 /* methods implement */
