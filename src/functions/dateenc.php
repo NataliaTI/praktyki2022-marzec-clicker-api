@@ -1,6 +1,6 @@
 <?php
 /**
- * prapering data 
+ * Preparing data 
  * @return $JSON_today_enc - returns todays date
  */
 function dateEnc(){

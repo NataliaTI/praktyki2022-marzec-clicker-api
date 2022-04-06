@@ -1,13 +1,13 @@
 <?php
-//  ABY SPRAWDZIĆ CZY DANA RZECZ ZOSTAŁA WYGENEROWANA UŻYJ
-//      statusChecker($zmienna)
-//  JAKO
-//      $zmienna
-//  WPISZ RZECZ DO SPRAWDZENIA
+/**
+ * Indicates if given variable is not empty
+ * @param $checkedVar - variable to check
+ * @return $checkedVarStat - true if variable is not empty; false if variable empty
+ */
 function statusChecker($checkedVar){
     if(isset($checkedVar) && !empty($checkedVar)) {
-        return $checkedVarStat = 'Succeded';
+        return $checkedVarStat = true;
     } else {
-        return $checkedVarStat = 'Failed';
+        return $checkedVarStat = false;
     }
 }

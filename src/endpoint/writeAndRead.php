@@ -61,7 +61,7 @@ function readData($user_id)
         }
         else
         { 
-            header("401 – Unauthorized");
+            header("HTTP/1.1 401 Unauthorized");
         }
 }
     
@@ -114,7 +114,7 @@ $statement ->bindParam(':user_id', $user_id, PDO::PARAM_STR);
 /* methods implement */
     if(getHeaders()=='')
     {
-        header('Error 401');
+        header("HTTP/1.1 401 Unauthorized");
     }
     else
     {
