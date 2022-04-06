@@ -1,7 +1,7 @@
 <?php
 
 require(__DIR__.'/../functions/dataBaseInterface.php');
-
+require(__DIR__.'/../functions/jwt.php');
 
 
 
@@ -23,31 +23,41 @@ function getHeaders(){
 }
 
 
-function getHash($parsHeader){
+// function getHash($parsHeader){
 
-        return $hash = hash('sha256', $parsHeader);
-}
+// //print_r($hash = hash('sha256', $parsHeader));
 
-//decoding token
-function getDecodedToken($parsHeader)
-{
+//         return $hash = hash('sha256', $parsHeader);
+// }
 
-  $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode ('.',$parsHeader )[0]))));       
-   
-        $parsHeader=$decodeJWT;
-        $parsHeader = json_encode($decodeJWT);
+// //decoding token
+// function getDecodedToken($parsHeader)
+// {
+// //print_r($parsHeader);
+//   $decodeJWT = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode ('.',$parsHeader )[0]))));       
+      
+//         $parsHeader = json_encode($decodeJWT);
 
-        return $user_id = $parsHeader;
-}
+//         return $user_id = $parsHeader;
+// }
   
+
+
 
 
 function readData($user_id)
 {
+
+//    print_r($user_id);
     $conn = openCon();
-        if($stmt = $conn ->query("SELECT status FROM `datatable` WHERE user_id='$user_id'") )
+    $stmt = $conn->query("SELECT status FROM `datatable` WHERE '$user_id'");
+    
+  //  $stmt = $conn->prepare($sql);
+    //$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+
+        if($row=$stmt->fetch(PDO::FETCH_ASSOC))
         {
-            $row=$stmt->fetch(PDO::FETCH_ASSOC);
+         //   $row=$stmt->fetch(PDO::FETCH_ASSOC);
             
             $output[]=$row['status'];
        
@@ -119,14 +129,26 @@ function writeData($user_id)
     if(getHeaders()=='')
     {
         header("HTTP/1.1 401 Unauthorized");
+        exit();
     }
     else
     {
-        $decodedToken = getDecodedToken( getHash(getHeaders()));
+        $getHeaders =getHeaders();
 
+        if(is_jwt_valid($getHeaders)){
+            $decodedToken = decodeToken($getHeaders);
+            $decodedToken = json_decode($decodedToken);
+        }
+        else{
+            header("HTTP/1.1 401 Unauthorized");
+            exit();
+        } 
         if($_SERVER['REQUEST_METHOD']=='GET')
         {
-            readData($decodedToken);
+            
+         //   var_dump(is_jwt_valid(getHeaders()));
+      //      print_r(getDecodedToken(getHash(getHeaders())));
+            readData($decodedToken[0]);
         } 
         else if($_SERVER['REQUEST_METHOD']=='PUT')
         {

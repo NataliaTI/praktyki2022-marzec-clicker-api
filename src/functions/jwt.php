@@ -20,3 +20,34 @@ function generate_jwt($payload) {
 }
 
 
+function is_jwt_valid($jwt, $secret = 'aabXXryuOOpe342bn24ldaFFGooopffgde45') {
+	// split the jwt
+	$tokenParts = explode('.', $jwt);
+	$header = base64_decode($tokenParts[0]);
+	$payload = base64_decode($tokenParts[1]);//
+	$signature_provided = $tokenParts[2];//
+
+
+	// build a signature based on the header and payload using the secret
+	$base64_url_header = base64url_encode($header);//
+	$base64_url_payload = base64url_encode($payload);
+	$signature = hash_hmac('SHA256', $base64_url_header . "." . $base64_url_payload, $secret, true);
+	$base64_url_signature = base64url_encode($signature);
+
+	// verify it matches the signature provided in the jwt
+	$is_signature_valid = ($base64_url_signature === $signature_provided);
+	
+	if (!$is_signature_valid) {
+		return FALSE;
+	} else {
+		return TRUE;
+	}
+}
+function decodeToken($jwt, $secret= 'aabXXryuOOpe342bn24ldaFFGooopffgde45'){
+    $tokenParts = explode('.', $jwt);
+	$payload = base64_decode($tokenParts[1]);//
+return $payload;
+}
+
+
+
