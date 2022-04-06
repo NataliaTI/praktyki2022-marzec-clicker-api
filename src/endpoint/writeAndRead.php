@@ -42,14 +42,10 @@ function getDecodedToken($parsHeader)
 
 function readData($user_id)
 {
-    $query = sprintf("SELECT status FROM `datatable` WHERE user_id='%s'",
-    mysqli_real_escape_string(OpenCon(), $user_id));
-
-    $secureUser_id = mysqli_real_escape_string(OpenCon(), $user_id);
-
-        if($result = mysqli_query(OpenCon(),$query))
+    $conn = openCon();
+        if($stmt = $conn ->query("SELECT status FROM `datatable` WHERE user_id='$user_id'") )
         {
-            $row=mysqli_fetch_assoc($result);
+            $row=$stmt->fetch(PDO::FETCH_ASSOC);
             
             $output[]=$row['status'];
        
@@ -61,7 +57,7 @@ function readData($user_id)
         
             echo $data_response_enc;
         
-            closeCon(openCon());
+            closeCon($conn);
         }
         else
         { 
@@ -73,29 +69,32 @@ function readData($user_id)
    
 function writeData($user_id)
 {
-    if($result = mysqli_query(openCon(),"
-      SELECT COUNT(`user_id`) as count FROM `datatable` WHERE `user_id` = '$user_id'"))
+    $conn = openCon();
+    if($stmt = $conn ->query("
+    SELECT COUNT(`user_id`) as count FROM `datatable` WHERE `user_id` = '$user_id'") )
     {
-         $row = mysqli_fetch_array($result);
+   
+        $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
          $entityBody = file_get_contents('php://input');
 
             if ($row ['count'])
             {
-    
-                $sql = "
-                UPDATE datatable SET status= '$entityBody' WHERE user_id = '$user_id'";
-
-                if(mysqli_query(openCon(), $sql))
+                
+    $pdo = openCon();
+    $sql = "UPDATE datatable SET status= '$entityBody' WHERE user_id = ':user_id'";
+$statement = $pdo->prepare($sql);
+$statement ->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+                if($statement->execute())
                 {
-                    echo "Records were updated successfully.";
+                   echo "Records were updated successfully.";
                 } 
                 else
                 {
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error(openCon());
                 }
 
-            closeCon(openCon());
+            closeCon($conn);
     
              return;
             }
@@ -109,7 +108,7 @@ function writeData($user_id)
         echo 'Brak polaczenia z baza danych';
     }
 
-    closeCon(openCon());
+    closeCon($conn);
 }
 
 /* methods implement */

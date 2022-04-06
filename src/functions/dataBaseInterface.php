@@ -27,7 +27,7 @@ function openCon()
 /* zamykanie polaczenia z baza danych */
 function closeCon($conn)
 {
-    $conn -> close();
+    $conn->connection = null;
 }
 
 /* tworzenie polecenia sql do bazy danych */
