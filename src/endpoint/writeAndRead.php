@@ -27,7 +27,7 @@ function readData($user_id)
     
     if($row=$stmt->fetch(PDO::FETCH_ASSOC))
     {    
-        $output[] = json_decode($row['status']);
+        $output = json_decode($row['status'], true);
         $data_response = array("Status"=>"Success", "Data"=>$output);
         $data_response_enc = json_encode($data_response);
         
