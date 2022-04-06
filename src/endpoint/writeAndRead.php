@@ -25,25 +25,21 @@ function readData($user_id)
     $conn = openCon();
     $stmt = $conn->query("SELECT status FROM `datatable` WHERE '$user_id'");
     
-      //  if($row=$stmt->fetch(PDO::FETCH_ASSOC))
-        //{    
-            $row=$stmt->fetch(PDO::FETCH_ASSOC);
-            $output[]=$row['status'];
-       
-            $readData =json_encode($output);
-    
-            $data_response = array("Status"=>"Success", "Data"=>$readData);
+    if($row=$stmt->fetch(PDO::FETCH_ASSOC))
+    {    
+        $output[] = json_decode($row['status']);
+        $data_response = array("Status"=>"Success", "Data"=>$output);
+        $data_response_enc = json_encode($data_response);
         
-            $data_response_enc = json_encode($data_response);
-        
-            echo $data_response_enc;
-        
-            closeCon($conn);
-       // }
-    //    else
-        //{ 
-            header("HTTP/1.1 401 Unauthorized");
-      //  }
+        header("HTTP/1.1 200 Ok");
+        echo $data_response_enc;
+    }
+    else
+    { 
+        header("HTTP/1.1 401 Unauthorized");
+    }
+
+    $conn = null;
 }
 
 
@@ -100,7 +96,7 @@ function writeData($user_id)
         header("HTTP/1.1 200 Ok");
         exit();
     }
-    elseif(getHeaders()=='' AND $_SERVER['REQUEST_METHOD']='OPTIONS')
+    elseif(getHeaders()=='')
     {
         header("HTTP/1.1 401 Unauthorized");
         exit();
@@ -117,14 +113,16 @@ function writeData($user_id)
             header("HTTP/1.1 401 Unauthorized");
             exit();
         } 
+
         if($_SERVER['REQUEST_METHOD']=='GET')
         {
             readData($decodedToken[0]);
+            exit;
         } 
         else if($_SERVER['REQUEST_METHOD']=='PUT')
         {
-
             writeData($decodedToken[0]);
+            exit;
         }
 }
 
