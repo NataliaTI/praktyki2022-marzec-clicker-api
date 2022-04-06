@@ -126,7 +126,12 @@ function writeData($user_id)
 }
 
 /* methods implement */
-    if(getHeaders()=='')
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
+    {
+        header("HTTP/1.1 200 Ok");
+        exit();
+    }
+    elseif(getHeaders()=='' AND $_SERVER['REQUEST_METHOD']='OPTIONS')
     {
         header("HTTP/1.1 401 Unauthorized");
         exit();
