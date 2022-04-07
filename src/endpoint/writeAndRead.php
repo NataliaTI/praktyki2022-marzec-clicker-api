@@ -62,11 +62,14 @@ function writeData($user_id)
             if($stmt)
             {
                 $data_response = array("Status"=>"Success", "Message"=>"Records were updated successfully");
-               
+                $data_response_enc = json_encode($data_response);
+                echo $data_response_enc;
             } 
             else
             {
                 $data_response = array("Status"=>"Failed", "Message"=>"ERROR: Could not able to execute");
+                $data_response_enc = json_encode($data_response);
+                echo $data_response_enc;
             }
 
             return;
@@ -74,11 +77,15 @@ function writeData($user_id)
         else
         {
             $data_response = array("Status"=>"Failed", "Message"=>"ERROR: No such user");
+            $data_response_enc = json_encode($data_response);
+            echo $data_response_enc;
         }
     }
     else
     {
         $data_response = array("Status"=>"Failed", "Message"=>"ERROR: No connection to the database");
+        $data_response_enc = json_encode($data_response);
+        echo $data_response_enc;
     }
 
     $conn = null;
