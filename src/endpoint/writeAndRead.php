@@ -45,7 +45,7 @@ function readData($user_id)
 
 function writeData($user_id)
 {
-   // print_r($user_id);
+
     $conn = openCon();
     if($stmt = $conn ->query("SELECT COUNT(`user_id`) as count FROM `datatable` WHERE `user_id` = '$user_id'"))
     {
@@ -61,28 +61,28 @@ function writeData($user_id)
             $stmt = $stmt->execute();
             if($stmt)
             {
-                echo "Records were updated successfully.";
+                $data_response = array("Status"=>"Success", "Message"=>"Records were updated successfully");
+               
             } 
             else
             {
-                echo "ERROR: Could not able to execute ";
+                $data_response = array("Status"=>"Failed", "Message"=>"ERROR: Could not able to execute");
             }
 
             return;
         }
         else
         {
-         echo 'brak takiego użytkownika';
+            $data_response = array("Status"=>"Failed", "Message"=>"ERROR: No such user");
         }
     }
     else
     {
-        echo 'Brak polaczenia z baza danych';
+        $data_response = array("Status"=>"Failed", "Message"=>"ERROR: No connection to the database");
     }
 
     $conn = null;
 }
-//$sq = writeData("5d3e5fa7-3d35-47c5-908d-9f278160d28a");
 /* methods implement */
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
     {
@@ -96,7 +96,7 @@ function writeData($user_id)
     }
     else
     {
-        $getHeaders =getHeaders();
+        $getHeaders = getHeaders();
 
         if(is_jwt_valid($getHeaders)){
             $decodedToken = decodeToken($getHeaders);
