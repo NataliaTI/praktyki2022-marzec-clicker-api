@@ -23,7 +23,7 @@ function getHeaders(){
 function readData($user_id)
 {
     $conn = openCon();
-    $stmt = $conn->query("SELECT status FROM `datatable` WHERE '$user_id'");
+    $stmt = $conn->query("SELECT status FROM `datatable` WHERE user_id = '$user_id'");
     
     if($row=$stmt->fetch(PDO::FETCH_ASSOC))
     {    
